@@ -49,7 +49,7 @@ export default function DocsEditPage({ $target, initialState }) {
                 })
                 removeItem(localDocsSaveKey);
                 
-            }, 2000);
+            }, 1000);
         }
     })
 
@@ -122,8 +122,6 @@ export default function DocsEditPage({ $target, initialState }) {
         }
     }
 
-    
-    
     //버튼 이벤트
     new LinkButton({
         $target: $page,
@@ -132,11 +130,4 @@ export default function DocsEditPage({ $target, initialState }) {
             link: '/'
         }
     });
-    // const $moveListButton = document.createElement('button');
-    // $moveListButton.innerText = '목록으로';
-    // $page.appendChild($moveListButton);
-
-    // $moveListButton.addEventListener('click', () => {
-    //     push('/');
-    // })
 }

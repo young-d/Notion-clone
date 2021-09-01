@@ -4,6 +4,8 @@ import { request } from "./api.js";
 export default function DocsList({ $target, initialState, onCreateNewDoc, onRemoveDoc }) {
     const $docsList = document.createElement('div');
 
+    $target.appendChild($docsList);
+
     this.state = initialState;
 
     this.setState = nextState => {
@@ -13,8 +15,6 @@ export default function DocsList({ $target, initialState, onCreateNewDoc, onRemo
 
     this.render = () => {
         $docsList.innerHTML = `<ul>${getAllDocuments(this.state.docs)}</ul>`;
-
-        $target.appendChild($docsList);
 
         $docsList.querySelectorAll('li.docs').forEach($li => {
             const $docsTitle = $li.getElementsByClassName('docs-title').item(0);

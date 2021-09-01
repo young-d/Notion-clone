@@ -50,6 +50,14 @@ export default function DocsPage({ $target }) {
                 method: 'DELETE'
             })
 
+            const { pathname } = window.location;
+            const currentId = parseInt(pathname.split('/')[2]);
+
+            //
+            if (currentId === id) {
+                history.replaceState(null, null, '/');
+            }
+
             this.setState();
         }
     })
