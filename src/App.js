@@ -28,10 +28,12 @@ export default function App ({ $target }) {
     this.route = () => {
       $target.innerHTML = '';
         const { pathname } = window.location
+        
 
         if (pathname === '/') {
             docsPage.setState();
         } else if (pathname.indexOf('/documents/') === 0 ) {
+            docsPage.setState();
             const [, , docId] = pathname.split('/')
             docsEditPage.setState({ docId })
         }
@@ -44,4 +46,5 @@ export default function App ({ $target }) {
     this.route();
 
     initRouter(() => this.route());
+    
 }

@@ -37,30 +37,17 @@ export default function DocsEditPage({ $target, initialState }) {
                     tempSaveData: new Date()
                 })
 
-                const isNew = this.state.docId === 'new';
-                if (isNew) {
-                    //에디팅한 포스트가 새 글일 경우 DB에 추가해주기
-                    const createdPost = await request('/documents', {
-                        method: 'POST',
-                        body: JSON.stringify(docInfo)
+                //새글이 아니면 DB에서 수정으로 반영해주고 로컬스토리지 비워주기 
+                JSON.stringify(docInfo)
+                await request(`/documents/${docInfo.id}`, {
+                    method: 'PUT',
+                    body: JSON.stringify({
+                        "title": docInfo.title,
+                        "content": docInfo.content
                     })
-
-                    //DB에 넣고나서 url을 계속 new 로 두면 뒤로가기등으로 돌아왔을 때 동작이 이상해지기 때문에 생성된 id로 url을 바꿔준다
-                    history.replaceState(null, null, `/documents/${createdPost.id}`);
-                    //저장이 성공한 경우 로컬스토리지에 있던 값 지워주기
-                    removeItem(localDocsSaveKey);
-                    //무한증식 버그 방지
-                    this.setState({
-                        docId: createdPost.id
-                    })
-                } else {
-                    //새글이 아니면 DB에서 수정으로 반영해주고 로컬스토리지 비워주기 
-                    await request(`/documents/${docInfo.id}`, {
-                        method: 'PUT',
-                        body: JSON.stringify(docInfo)
-                    })
-                    removeItem(localDocsSaveKey);
-                }
+                })
+                removeItem(localDocsSaveKey);
+                
             }, 2000);
         }
     })
