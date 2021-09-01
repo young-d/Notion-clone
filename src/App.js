@@ -9,12 +9,17 @@ import { initRouter } from "./router.js";
 */
 
 export default function App ({ $target }) {
+    const $navBar = document.createElement('nav');
+    const $mainViewer = document.createElement('main');
+
+    
+
     const docsPage = new DocsPage({ 
-        $target
+        $target: $navBar
     })
 
     const docsEditPage = new DocsEditPage({ 
-        $target,
+        $target: $mainViewer,
         initialState: {
             docId: 'new',
             docInfo: {
@@ -26,16 +31,18 @@ export default function App ({ $target }) {
 
     //라우팅 처리
     this.route = () => {
-      $target.innerHTML = '';
-        const { pathname } = window.location
-        
+        $target.appendChild($navBar);
+        $target.appendChild($mainViewer);
 
-        if (pathname === '/') {
-            docsPage.setState();
-        } else if (pathname.indexOf('/documents/') === 0 ) {
+        const { pathname } = window.location
+
+        docsPage.setState();
+
+        if (pathname.indexOf('/documents/') === 0 ) {
             docsPage.setState();
             const [, , docId] = pathname.split('/')
             docsEditPage.setState({ docId })
+            docsPage.setState();
         }
     }
 

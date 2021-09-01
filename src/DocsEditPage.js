@@ -5,6 +5,7 @@ import LinkButton from "./LinkButton.js";
 
 export default function DocsEditPage({ $target, initialState }) {
     const $page = document.createElement('div');
+    $page.className = 'edit-page';
 
     this.state = initialState;
 

@@ -1,10 +1,10 @@
 import DocsList from "./DocsList.js";
 import { request } from "./api.js";
-import LinkButton from "./LinkButton.js";
 import { push } from "./router.js";
 
 export default function DocsPage({ $target }) {
     const $page = document.createElement('div');
+    $page.className = 'docs-page';
 
     const $button = document.createElement('button');
     $button.textContent = '+';
