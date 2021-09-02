@@ -1,0 +1,106 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+#app {
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+#sideBar {
+    width: 25%;
+    padding: 0;
+    background-color:#f7f6f3;
+    font-size: 1.1em;
+    resize: horizontal;
+    overflow: scroll;
+    color: #4d4b46;
+}
+
+#mainViewer {
+    width: 75%;
+    padding: 5%;
+    background-color:wheat;
+    width: 75%;
+}
+
+button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+ul {
+    list-style: none;
+    padding: 0 0 0 20px;
+}
+
+#addDocButton {
+    width: 100%;
+    border: 1px solid #bdbdbd;
+    padding: 1%;
+}
+
+.docs-page {
+    display: flex;
+    flex-direction: column;
+}
+
+#rootDocs {
+    display: flex;
+    flex-direction: column;
+}
+
+.each-doc .docs-title {
+    width: 70%;
+    height: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    padding: 2% 1% 0 0;
+}
+
+.each-doc .parent {
+    display: flex;
+    padding: 2% 4%;
+}
+
+.list-btn-group {
+    margin-left: auto;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.parent:hover {
+    border-color:#e9e8e5;
+    border-radius: 5px;
+    background-color: #e9e8e5;
+    cursor: pointer;
+}
+
+.add-btn, .remove-btn {
+    display: none;
+    font-size: 1.1em;
+    padding: none;
+    margin: 1px;
+}
+
+.add-btn:hover, .remove-btn:hover {
+    color: #4d4b46;
+}
+
+.parent:hover  > .list-btn-group button{
+    display: inline-block;
+    color: #bdbdbd;
+}
+
+.parent:hover > .docs-title {
+    font-weight: bold;
+}
+
+  
