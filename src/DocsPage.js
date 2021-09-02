@@ -6,11 +6,12 @@ export default function DocsPage({ $target }) {
     const $page = document.createElement('div');
     $page.className = 'docs-page';
 
-    const $button = document.createElement('button');
-    $button.textContent = '+';
-    $page.appendChild($button);
+    const $addDocButton = document.createElement('button');
+    $addDocButton.id = 'addDocButton';
+    $addDocButton.innerHTML = '<i class="fas fa-plus"></i>';
+    $page.appendChild($addDocButton);
 
-    $button.addEventListener('click', async () => {
+    $addDocButton.addEventListener('click', async () => {
         const createdRootDoc = await request('/documents', {
             method: 'POST',
             body: JSON.stringify({
@@ -18,8 +19,6 @@ export default function DocsPage({ $target }) {
                 "parent": null
             })
         });
-
-        console.log(createdRootDoc);
 
         push(`/documents/${createdRootDoc.id}`);
         this.setState();
@@ -53,7 +52,7 @@ export default function DocsPage({ $target }) {
             const { pathname } = window.location;
             const currentId = parseInt(pathname.split('/')[2]);
 
-            //
+            //현재 편집기 문서를 삭제하고 새로고침할 경우 없는 페이지가 되므로 /로 변경해주기
             if (currentId === id) {
                 history.replaceState(null, null, '/');
             }
@@ -65,13 +64,14 @@ export default function DocsPage({ $target }) {
     //this.setState로 lsit 데이터 업데이트해주기 (렌더링할 때말고) -> EditPage와 일관성 맞추기 위해서
     this.setState = async () => {
         const docs = await request('/documents');
+
         docslist.setState({
-            docs: docs
+            docs: docs.sort((a, b) => a.id - b.id)
         });
         this.render();
     }
 
     this.render = () => {
         $target.appendChild($page);
-    }
+    }    
 }
