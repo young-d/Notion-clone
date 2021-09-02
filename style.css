@@ -3,6 +3,12 @@ body {
     margin: 0;
 }
 
+hr {
+    height: 0.1px;
+    background-color: #bdbdbd;
+    border: none;
+}
+
 #app {
     height: 100vh;
     display: flex;
@@ -11,19 +17,22 @@ body {
 }
 
 #sideBar {
-    width: 25%;
+    width: 15%;
     padding: 0;
     background-color:#f7f6f3;
-    font-size: 1.1em;
-    resize: horizontal;
-    overflow: scroll;
     color: #4d4b46;
+    overflow: scroll;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+#sideBar::-webkit-scrollbar { 
+    display: none;
 }
 
 #mainViewer {
-    width: 75%;
+    width: 85%;
     padding: 5%;
-    background-color:wheat;
+    /* background-color:wheat; */
     width: 75%;
 }
 
@@ -36,13 +45,26 @@ button {
 
 ul {
     list-style: none;
-    padding: 0 0 0 20px;
+}
+
+#header {
+    padding: 5%;
+    white-space: nowrap;
+    text-overflow: hidden;
 }
 
 #addDocButton {
-    width: 100%;
-    border: 1px solid #bdbdbd;
+    width: calc(100% - 5px);
+    margin: 0 5px;
+    border: 2px solid #bdbdbd;
+    border-radius: 2px;
     padding: 1%;
+    color: #bdbdbd;
+}
+
+#addDocButton:hover {
+    background-color: #bdbdbd;
+    color: #4d4b46;
 }
 
 .docs-page {
@@ -53,6 +75,13 @@ ul {
 #rootDocs {
     display: flex;
     flex-direction: column;
+    height: 100%;
+    padding: 0 0 0 5px;
+    align-self: center;
+}
+
+.sub-docs {
+    padding: 0 0 0 20px;
 }
 
 .each-doc .docs-title {
@@ -62,12 +91,17 @@ ul {
     overflow: hidden;
     text-overflow: ellipsis;
     cursor: pointer;
-    padding: 2% 1% 0 0;
+    padding: 0 5%;
+}
+
+li.parent {
+    height: 40.81px;
+    border: none;
 }
 
 .each-doc .parent {
     display: flex;
-    padding: 2% 4%;
+    padding: 3% 5%;
 }
 
 .list-btn-group {
@@ -85,12 +119,11 @@ ul {
 
 .add-btn, .remove-btn {
     display: none;
-    font-size: 1.1em;
-    padding: none;
+    font-size: 1.2em;
     margin: 1px;
 }
 
-.add-btn:hover, .remove-btn:hover {
+.add-btn svg:hover, .remove-btn svg:hover {
     color: #4d4b46;
 }
 
@@ -102,5 +135,26 @@ ul {
 .parent:hover > .docs-title {
     font-weight: bold;
 }
-
+  
+  
+  
+#sideBar, #mainViewer {
+    /* Use box-sizing so that element's outerwidth will match width property */
+    box-sizing: border-box;
+    /* Allow box to grow and shrink, and ensure they are all equally sized */
+    flex: 1 1 auto;
+}
+  
+#handler {
+    width: 5px;
+    height: 100%;
+    background: #f7f6f3;
+    padding: 0;
+    cursor: col-resize;
+    flex: 0 0 auto;
+}
+  
+#handler:hover {
+    background: #bdbdbd;
+}
   

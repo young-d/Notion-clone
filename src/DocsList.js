@@ -49,7 +49,7 @@ export default function DocsList({ $target, initialState, onCreateNewDoc, onRemo
                             </section>
                         </section>
                         ${eachDoc.documents.length > 0 
-                            ? `<ul class="sub">${getAllDocuments(eachDoc.documents)}</ul>` 
+                            ? `<ul class="sub-docs">${getAllDocuments(eachDoc.documents)}</ul>` 
                             : ''
                         }
                     </li>`;
