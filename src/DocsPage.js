@@ -24,7 +24,6 @@ export default function DocsPage({ $target }) {
         this.setState();
     })
 
-
     const docslist = new DocsList({
         $target: $page,
         initialState: {
@@ -37,10 +36,10 @@ export default function DocsPage({ $target }) {
                     "title": '',
                     "parent": id
                 })
-            })
+            });
 
-            //DB에 넣고나서 url을 계속 new 로 두면 뒤로가기등으로 돌아왔을 때 동작이 이상해지기 때문에 생성된 id로 url을 바꿔준다
             history.replaceState(null, null, `/documents/${createdDoc.id}`);
+
             push(`/documents/${createdDoc.id}`);
             this.setState();
         },
@@ -68,6 +67,7 @@ export default function DocsPage({ $target }) {
         docslist.setState({
             docs: docs.sort((a, b) => a.id - b.id)
         });
+
         this.render();
     }
 

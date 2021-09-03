@@ -1,5 +1,4 @@
-(function parseMd(md){
-  
+export const parseMd = (md) => {
     //ul
     md = md.replace(/^\s*\n\*/gm, '<ul>\n*');
     md = md.replace(/^(\*.+)\s*\n([^\*])/gm, '$1\n</ul>\n\n$2');
@@ -34,33 +33,22 @@
     //font styles
     md = md.replace(/[\*\_]{2}([^\*\_]+)[\*\_]{2}/g, '<b>$1</b>');
     md = md.replace(/[\*\_]{1}([^\*\_]+)[\*\_]{1}/g, '<i>$1</i>');
-  md = md.replace(/[\~]{2}([^\~]+)[\~]{2}/g, '<del>$1</del>');
-  
-  //pre
-  md = md.replace(/^\s*\n\`\`\`(([^\s]+))?/gm, '<pre class="$2">');
-  md = md.replace(/^\`\`\`\s*\n/gm, '</pre>\n\n');
-  
-  //code
-  md = md.replace(/[\`]{1}([^\`]+)[\`]{1}/g, '<code>$1</code>');
-  
-  //p
-  md = md.replace(/^\s*(\n)?(.+)/gm, function(m){
-    return  /\<(\/)?(h\d|ul|ol|li|blockquote|pre|img)/.test(m) ? m : '<p>'+m+'</p>';
-  });
-  
-  //strip p from pre
-  md = md.replace(/(\<pre.+\>)\s*\n\<p\>(.+)\<\/p\>/gm, '$1$2');
-  
-  return md;
-  
-}());
-
-var rawMode = true;
-    mdEl = document.getElementById('contentEditor'),
-    outputEl = document.getElementById('contentEditor'),
-    parse = function(){
-      outputEl[innerHTML] = parseMd(mdEl.innerText);
-    };
-
-parse();
-mdEl.addEventListener('keyup', parse, false);
+    md = md.replace(/[\~]{2}([^\~]+)[\~]{2}/g, '<del>$1</del>');
+    
+    //pre
+    md = md.replace(/^\s*\n\`\`\`(([^\s]+))?/gm, '<pre class="$2">');
+    md = md.replace(/^\`\`\`\s*\n/gm, '</pre>\n\n');
+    
+    //code
+    md = md.replace(/[\`]{1}([^\`]+)[\`]{1}/g, '<code>$1</code>');
+    
+    //p
+    md = md.replace(/^\s*(\n)?(.+)/gm, function(m){
+        return  /\<(\/)?(h\d|ul|ol|li|blockquote|pre|img)/.test(m) ? m : '<p>'+m+'</p>';
+    });
+    
+    //strip p from pre
+    md = md.replace(/(\<pre.+\>)\s*\n\<p\>(.+)\<\/p\>/gm, '$1$2');
+    
+    return md;
+}

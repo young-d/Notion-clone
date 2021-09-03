@@ -1,39 +1,14 @@
+/** 공통 css **/
 body {
     padding: 0;
     margin: 0;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
 hr {
     height: 0.1px;
     background-color: #bdbdbd;
     border: none;
-}
-
-#app {
-    height: 100vh;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-}
-
-#sideBar {
-    width: 15%;
-    padding: 0;
-    background-color:#f7f6f3;
-    color: #4d4b46;
-    overflow: scroll;
-    font-family: 'Noto Sans KR', sans-serif;
-}
-
-#sideBar::-webkit-scrollbar { 
-    display: none;
-}
-
-#mainViewer {
-    width: 85%;
-    padding: 5%;
-    /* background-color:wheat; */
-    width: 75%;
 }
 
 button {
@@ -46,13 +21,43 @@ button {
 ul {
     list-style: none;
 }
+/** 공통 css **/
 
+/** main page layout **/
+#app {
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+/** side-bar layout **/
+#sideBar {
+    width: 15%;
+    padding: 0;
+    background-color:#f7f6f3;
+    color: #4d4b46;
+    overflow: scroll;
+}
+
+#sideBar::-webkit-scrollbar { 
+    display: none;
+}
+
+.docs-page {
+    display: flex;
+    flex-direction: column;
+}
+/** side-bar layout **/
+
+/** side-ber header 타이틀 **/
 #header {
     padding: 5%;
     white-space: nowrap;
     text-overflow: hidden;
 }
 
+/** side-bar 루트 문서 추가 버튼 **/
 #addDocButton {
     width: calc(100% - 5px);
     margin: 0 5px;
@@ -66,12 +71,10 @@ ul {
     background-color: #bdbdbd;
     color: #4d4b46;
 }
+/** side-bar 루트 문서 추가 버튼 **/
 
-.docs-page {
-    display: flex;
-    flex-direction: column;
-}
 
+/** side-bar root 문서 레이아웃 **/
 #rootDocs {
     display: flex;
     flex-direction: column;
@@ -80,10 +83,49 @@ ul {
     align-self: center;
 }
 
+/** side-bar 하위 문서 레이아웃 **/
 .sub-docs {
     padding: 0 0 0 20px;
 }
 
+/** side-bar 각 문서 영역 레이아웃 **/
+.each-doc .parent {
+    display: flex;
+    padding: 3% 5%;
+}
+
+.active-doc {
+    border-color:#e9e8e5;
+    border-radius: 5px;
+    background-color: #e9e8e5;
+    cursor: pointer;
+}
+
+/** side-bar 각 문서 영역 hover 스타일 **/
+.parent:hover {
+    border-color:#e9e8e5;
+    border-radius: 5px;
+    background-color: #e9e8e5;
+    cursor: pointer;
+}
+
+.parent:hover > .docs-title {
+    font-weight: bold;
+}
+
+.parent:hover  > .list-btn-group button{
+    display: inline-block;
+    color: #bdbdbd;
+}
+/** side-bar 각 문서 영역 hover 스타일 **/
+
+/** side-ber 문서 아이콘 스타일 **/
+.doc-icon {
+    color: #bdbdbd;
+    margin: 0 1px;
+}
+
+/** side-bar 각 문서 title 영역 레이아웃 **/
 .each-doc .docs-title {
     width: 70%;
     height: 100%;
@@ -94,54 +136,28 @@ ul {
     padding: 0 5%;
 }
 
-li.parent {
-    height: 40.81px;
-    border: none;
-}
-
-.each-doc .parent {
-    display: flex;
-    padding: 3% 5%;
-}
-
-.list-btn-group {
+/** side-bar 각 문서 버튼 그룹 레이아웃 **/
+.each-doc .list-btn-group {
     margin-left: auto;
     white-space: nowrap;
     overflow: hidden;
 }
 
-.parent:hover {
-    border-color:#e9e8e5;
-    border-radius: 5px;
-    background-color: #e9e8e5;
-    cursor: pointer;
-}
-
+/** side-bar 각 문서 버튼 레이아웃 **/
 .add-btn, .remove-btn {
     display: none;
     font-size: 1.2em;
     margin: 1px;
 }
 
+/** side-bar 각 문서 버튼 hover 스타일 **/
 .add-btn svg:hover, .remove-btn svg:hover {
     color: #4d4b46;
 }
 
-.parent:hover  > .list-btn-group button{
-    display: inline-block;
-    color: #bdbdbd;
-}
-
-.parent:hover > .docs-title {
-    font-weight: bold;
-}
-  
-  
-  
-#sideBar, #mainViewer {
-    /* Use box-sizing so that element's outerwidth will match width property */
+/** side-bar resizing **/
+#sideBar, #docsViewer {
     box-sizing: border-box;
-    /* Allow box to grow and shrink, and ensure they are all equally sized */
     flex: 1 1 auto;
 }
   
@@ -157,4 +173,46 @@ li.parent {
 #handler:hover {
     background: #bdbdbd;
 }
-  
+/** side-bar resizing **/
+
+/** editor 레이아웃 **/
+#docsViewer {
+    width: 85%;
+    padding: 5% 10%;
+    width: 75%;
+    overflow: scroll;
+}
+
+input[name=title], div[name=content] {
+    width: 100%;
+    border: none;
+    padding: 1% 2%;
+}
+/** editor 레이아웃 **/
+
+/** editor 스타일 **/
+input[name=title]:focus, div[name=content]:focus {
+    outline: none;
+}
+
+input[name=title] {
+    font-size: 2.3em;
+    font-weight: bold;
+    letter-spacing : 2px;
+}
+
+div[name=content] {
+
+}
+
+input[name=title]::placeholder {
+    color: #e4e4e3;
+}
+
+.sub-docs-link:hover .sub-doc-title{
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: #4d4b46;
+    color: #4d4b46;
+}
+/** editor 스타일 **/

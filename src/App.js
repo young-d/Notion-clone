@@ -3,6 +3,8 @@ import DocsEditPage from "./DocsEditPage.js";
 import { initRouter } from "./router.js";
 import { HEADER_TITLE } from "./constant.js";
 import Header from "./Header.js";
+import { removeItem } from "./storage.js";
+import { LOCAL_SELECTED_DOC_KEY } from "./constant.js";
 
 export default function App ({ $target }) {
     const $navBar = document.createElement('nav');
@@ -12,20 +14,23 @@ export default function App ({ $target }) {
     $handler.id = 'handler';
    
 
-    const $mainViewer = document.createElement('article');   
-    $mainViewer.id = 'mainViewer';
+    const $docsViewer = document.createElement('article');   
+    $docsViewer.id = 'docsViewer';
 
     new Header({
         $target: $navBar,
-        text: HEADER_TITLE
+        text: HEADER_TITLE,
+        onLoadIntro: () => {
+            
+        }
     })
 
     const docsPage = new DocsPage({ 
-        $target: $navBar
+        $target: $navBar,
     })
 
     const docsEditPage = new DocsEditPage({ 
-        $target: $mainViewer,
+        $target: $docsViewer,
         initialState: {
             docId: '',
             docInfo: {
@@ -35,24 +40,25 @@ export default function App ({ $target }) {
         }
     })
 
+
     this.route = () => {
         $target.appendChild($navBar);
         $target.appendChild($handler);
-        $target.appendChild($mainViewer);
+        $target.appendChild($docsViewer);
 
-        const { pathname } = window.location
-
-        docsPage.setState();
-
-        if (pathname.indexOf('/documents/') === 0 ) {
+        const { pathname } = window.location;
+        
+        if (pathname === '/') {
+            docsPage.setState();
+        } else if (pathname.indexOf('/documents/') === 0 ) {
             docsPage.setState();
             const [, , docId] = pathname.split('/')
-            docsEditPage.setState({ docId })
-            docsPage.setState();
+            docsEditPage.setState({ docId });
         }
     }
 
-    window.onpopstate = (e) => {
+    //뒤로가기or앞으로가기 시 라우팅
+    window.onpopstate = () => {
         this.route();
     }
 
@@ -60,45 +66,32 @@ export default function App ({ $target }) {
 
     initRouter(() => this.route());
 
- ///////////////////////////
+    //사이드 바 resizing handler
+    let isHandlerDragging = false;
+ 
+    document.addEventListener('mousedown', function(e) {
+        if (e.target === $handler) {
+            isHandlerDragging = true;
+        }
+    });
 
- var handler = document.querySelector('#handler');
- var wrapper = handler.closest('#app');
- var boxA = wrapper.querySelector('#sideBar');
- var isHandlerDragging = false;
- 
- document.addEventListener('mousedown', function(e) {
-   // If mousedown event is fired from .handler, toggle flag to true
-   if (e.target === handler) {
-     isHandlerDragging = true;
-   }
- });
- 
- document.addEventListener('mousemove', function(e) {
-   // Don't do anything if dragging flag is false
-   if (!isHandlerDragging) {
-     return false;
-   }
- 
-   // Get offset
-   var containerOffsetLeft = wrapper.offsetLeft;
- 
-   // Get x-coordinate of pointer relative to container
-   var pointerRelativeXpos = e.clientX - containerOffsetLeft;
-   
-   // Arbitrary minimum width set on box A, otherwise its inner content will collapse to width of 0
-   var boxAminWidth = 60;
- 
-   // Resize box A
-   // * 8px is the left/right spacing between .handler and its inner pseudo-element
-   // * Set flex-grow to 0 to prevent it from growing
-   boxA.style.width = (Math.max(boxAminWidth, pointerRelativeXpos - 8)) + 'px';
-   boxA.style.flexGrow = 0;
- });
- 
- document.addEventListener('mouseup', function(e) {
-   // Turn off dragging flag when user mouse is up
-   isHandlerDragging = false;
- });
+    document.addEventListener('mousemove', function(e) {
+        if (!isHandlerDragging) {
+            return false;
+        }
+
+        const containerOffsetLeft = $target.offsetLeft;
+
+        const pointerRelativeXpos = e.clientX - containerOffsetLeft;
+
+        const navBarMinWidth = 60;
+
+        $navBar.style.width = (Math.max(navBarMinWidth, pointerRelativeXpos - 8)) + 'px';
+        $navBar.style.flexGrow = 0;
+    });
+
+    document.addEventListener('mouseup', function(e) {
+        isHandlerDragging = false;
+    });
 
 }
